@@ -1,0 +1,53 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Bomet Bible School Form Detection</title>
+  </head>
+  <body>
+
+    <!-- Student Application Form -->
+    <form
+      name="student-application"
+      method="POST"
+      data-netlify="true"
+      hidden
+    >
+      <input
+        type="hidden"
+        name="form-name"
+        value="student-application"
+      />
+
+      <input type="text" name="fullName" />
+      <input type="tel" name="phone" />
+      <input type="email" name="email" />
+      <select name="programme"></select>
+      <select name="education"></select>
+      <input type="text" name="church" />
+      <textarea name="statement"></textarea>
+    </form>
+
+    <!-- General School Enquiry Form -->
+    <form
+      name="school-enquiry"
+      method="POST"
+      data-netlify="true"
+      hidden
+    >
+      <input
+        type="hidden"
+        name="form-name"
+        value="school-enquiry"
+      />
+
+      <input type="text" name="enquiryName" />
+      <input type="tel" name="enquiryPhone" />
+      <input type="email" name="enquiryEmail" />
+      <select name="enquirySubject"></select>
+      <textarea name="enquiryText"></textarea>
+    </form>
+
+  </body>
+</html>

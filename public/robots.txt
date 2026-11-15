@@ -1,0 +1,6 @@
+
+User-agent: *
+Allow: /
+
+Sitemap: https://bomet-bible-school.netlify.app/sitemap.xml
+

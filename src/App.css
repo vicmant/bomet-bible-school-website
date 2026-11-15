@@ -1,0 +1,505 @@
+
+/* =========================================
+   BOMET BIBLE SCHOOL - WEBSITE STYLES
+   Colours: Navy Blue, Antique Gold and Ivory
+========================================= */
+
+:root {
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: #263247;
+  background: #ffffff;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+
+  --navy: #102b46;
+  --navy-dark: #091d32;
+  --gold: #b99a55;
+  --gold-light: #d8c28c;
+  --ivory: #f8f6f0;
+  --text: #263247;
+  --muted: #687487;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-width: 320px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* HEADER */
+
+.header {
+  width: 100%;
+  min-height: 85px;
+  padding: 14px 6%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+  background: #ffffff;
+  border-bottom: 1px solid #e9e4d8;
+  position: relative;
+  z-index: 10;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: var(--navy);
+  flex-shrink: 0;
+}
+
+.logo img {
+  width: 65px;
+  height: 65px;
+  object-fit: contain;
+}
+
+.logo h2 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  line-height: 1.3;
+  color: var(--navy);
+}
+
+.logo p {
+  color: var(--gold);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin: 3px 0 0;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px 22px;
+}
+
+nav a {
+  color: var(--navy);
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+nav a:hover {
+  color: var(--gold);
+}
+
+/* HERO SECTION */
+
+.hero {
+  min-height: 520px;
+  padding: 75px 7%;
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  align-items: center;
+  gap: 55px;
+  background: var(--ivory);
+}
+
+.hero-content {
+  max-width: 650px;
+}
+
+.welcome {
+  color: var(--gold);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-bottom: 15px;
+}
+
+.hero-content h1 {
+  color: var(--navy);
+  font-size: clamp(2.3rem, 4vw, 3.8rem);
+  line-height: 1.15;
+  margin-bottom: 24px;
+  font-weight: 800;
+}
+
+.hero-content h3 {
+  color: var(--gold);
+  font-size: 1.05rem;
+  margin-bottom: 15px;
+}
+
+.hero-content p {
+  color: var(--muted);
+  font-size: 1.08rem;
+  margin-bottom: 25px;
+}
+
+.hero-image img {
+  width: 100%;
+  height: 390px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 5px;
+  border: 5px solid #ffffff;
+  box-shadow: 0 15px 40px rgba(16, 43, 70, 0.15);
+}
+
+/* LINKS AND BUTTONS */
+
+.hero-button,
+.btn {
+  display: inline-block;
+  background: var(--gold);
+  color: var(--navy-dark);
+  border: 1px solid var(--gold);
+  border-radius: 4px;
+  padding: 12px 22px;
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.hero-button:hover,
+.btn:hover {
+  background: var(--navy);
+  border-color: var(--navy);
+  color: #ffffff;
+}
+
+button {
+  font: inherit;
+}
+
+/* GENERAL SECTIONS */
+
+section {
+  scroll-margin-top: 30px;
+}
+
+.about,
+.programmes,
+.admissions,
+.contact {
+  padding: 80px 8%;
+}
+
+.about {
+  background: #ffffff;
+}
+
+.programmes {
+  background: var(--ivory);
+}
+
+.admissions {
+  background: var(--navy);
+  color: #ffffff;
+}
+
+.contact {
+  background: #ffffff;
+}
+
+section h2 {
+  color: var(--navy);
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  line-height: 1.25;
+  margin-bottom: 22px;
+}
+
+.admissions h2 {
+  color: #ffffff;
+}
+
+section p {
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+.admissions p {
+  color: #e2e8ef;
+}
+
+/* PROGRAMME CARDS */
+
+.programme-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 25px;
+  margin-top: 35px;
+}
+
+.programme-card {
+  min-width: 0;
+  background: #ffffff;
+  padding: 32px;
+  border: 1px solid #e8e1d2;
+  border-top: 4px solid var(--gold);
+  border-radius: 5px;
+  box-shadow: 0 8px 25px rgba(16, 43, 70, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.programme-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 30px rgba(16, 43, 70, 0.12);
+}
+
+.programme-card h3 {
+  color: var(--navy);
+  font-size: 1.3rem;
+  margin-bottom: 12px;
+}
+
+.programme-card p {
+  margin-bottom: 12px;
+}
+
+.programme-card p:last-child {
+  margin-bottom: 0;
+}
+
+.programme-card a {
+  color: var(--navy);
+}
+
+.programme-card .hero-button {
+  color: var(--navy-dark);
+}
+
+.programme-card .hero-button:hover {
+  color: #ffffff;
+}
+
+/* SUBJECT LISTS */
+
+details {
+  color: var(--text);
+}
+
+details summary {
+  color: var(--navy);
+  cursor: pointer;
+  padding: 5px 0;
+}
+
+details summary:hover {
+  color: var(--gold);
+}
+
+details ul {
+  padding-left: 22px;
+}
+
+details li {
+  margin-bottom: 5px;
+}
+
+/* CONTACT */
+
+.contact a {
+  color: var(--gold);
+  font-weight: 600;
+}
+
+.contact a:hover {
+  text-decoration: underline;
+}
+
+.contact .programme-card a.hero-button {
+  color: var(--navy-dark);
+}
+
+.contact .programme-card a.hero-button:hover {
+  color: #ffffff;
+}
+
+/* FOOTER */
+
+footer {
+  background: var(--navy-dark);
+  color: #ffffff;
+  text-align: center;
+  padding: 28px 7%;
+}
+
+footer p {
+  color: #dce3eb;
+  font-size: 0.9rem;
+  margin-bottom: 0;
+}
+
+/* TABLET */
+
+@media (max-width: 1000px) {
+  .header {
+    flex-direction: column;
+    padding: 20px 5%;
+  }
+
+  nav {
+    gap: 12px 20px;
+  }
+
+  .hero {
+    grid-template-columns: 1fr 1fr;
+    padding: 55px 6%;
+    gap: 30px;
+  }
+
+  .hero-image img {
+    height: 330px;
+  }
+
+  .about,
+  .programmes,
+  .admissions,
+  .contact {
+    padding: 65px 6%;
+  }
+}
+
+/* MOBILE */
+
+@media (max-width: 650px) {
+  .header {
+    padding: 18px 4%;
+    gap: 18px;
+  }
+
+  .logo {
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .logo img {
+    width: 55px;
+    height: 55px;
+  }
+
+  .logo h2 {
+    font-size: 1.05rem;
+  }
+
+  .logo p {
+    font-size: 0.62rem;
+    letter-spacing: 0.5px;
+  }
+
+  nav {
+    width: 100%;
+    gap: 9px 15px;
+  }
+
+  nav a {
+    font-size: 0.82rem;
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+    padding: 45px 5%;
+    gap: 30px;
+  }
+
+  .hero-content h1 {
+    font-size: 2.2rem;
+  }
+
+  .hero-content h3 {
+    font-size: 0.98rem;
+  }
+
+  .hero-content p {
+    font-size: 1rem;
+  }
+
+  .hero-image img {
+    height: 260px;
+  }
+
+  .about,
+  .programmes,
+  .admissions,
+  .contact {
+    padding: 48px 5%;
+  }
+
+  .programme-cards {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .programme-card {
+    padding: 24px;
+  }
+
+  .programme-card h3 {
+    font-size: 1.2rem;
+  }
+
+  .hero-button {
+    padding: 11px 17px;
+    font-size: 0.9rem;
+  }
+
+  footer {
+    padding: 24px 5%;
+  }
+}
+
+/* SMALL MOBILE PHONES */
+
+@media (max-width: 380px) {
+  .logo img {
+    width: 45px;
+    height: 45px;
+  }
+
+  .logo h2 {
+    font-size: 0.95rem;
+  }
+
+  nav {
+    gap: 8px 11px;
+  }
+
+  nav a {
+    font-size: 0.76rem;
+  }
+
+  .hero-content h1 {
+    font-size: 1.9rem;
+  }
+
+  .programme-card {
+    padding: 20px;
+  }
+}
