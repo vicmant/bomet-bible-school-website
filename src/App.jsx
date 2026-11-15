@@ -6,6 +6,9 @@ function App() {
   const [formMessage, setFormMessage] = useState('')
   const [enquiryMessage, setEnquiryMessage] = useState('')
   const [selectedImage, setSelectedImage] = useState(null)
+  const [isSubmittingApplication, setIsSubmittingApplication] = useState(false)
+  const [applicationSubmitted, setApplicationSubmitted] = useState(false)
+  const [isSubmittingEnquiry, setIsSubmittingEnquiry] = useState(false)
 
   const diplomaSubjects = [
     {
@@ -198,12 +201,20 @@ function App() {
   // STUDENT APPLICATION SUBMISSION
   const handleApplication = async (event) => {
     event.preventDefault()
+
     const form = event.currentTarget
+
+    if (isSubmittingApplication || applicationSubmitted) {
+      return
+    }
 
     if (!form.checkValidity()) {
       form.reportValidity()
       return
     }
+
+    setIsSubmittingApplication(true)
+    setFormMessage('')
 
     try {
       const formData = new FormData(form)
@@ -220,27 +231,38 @@ function App() {
         throw new Error('Application submission failed')
       }
 
+      setApplicationSubmitted(true)
+
       setFormMessage(
-        'Thank you for applying to Bomet Bible School. Your application has been submitted successfully. The school can follow up using the contact details you provided.'
+        'Thank you for applying to Bomet Bible School. Your application has been received successfully. The school will contact you using the details you provided.'
       )
 
-      form.reset()
     } catch (error) {
       setFormMessage(
         'We could not submit your application at this time. Please try again or contact the school on +254 724 365216.'
       )
+    } finally {
+      setIsSubmittingApplication(false)
     }
   }
 
   // GENERAL SCHOOL ENQUIRY SUBMISSION
   const handleEnquiry = async (event) => {
     event.preventDefault()
+
     const form = event.currentTarget
+
+    if (isSubmittingEnquiry) {
+      return
+    }
 
     if (!form.checkValidity()) {
       form.reportValidity()
       return
     }
+
+    setIsSubmittingEnquiry(true)
+    setEnquiryMessage('')
 
     try {
       const formData = new FormData(form)
@@ -262,10 +284,13 @@ function App() {
       )
 
       form.reset()
+
     } catch (error) {
       setEnquiryMessage(
         'We could not submit your enquiry at this time. Please try again or contact the school on +254 724 365216.'
       )
+    } finally {
+      setIsSubmittingEnquiry(false)
     }
   }
 
@@ -790,159 +815,191 @@ function App() {
               Required fields are marked with an asterisk (*).
             </p>
 
-            <form
-              name="student-application"
-              method="POST"
-              data-netlify="true"
-              onSubmit={handleApplication}
-            >
-              <input
-                type="hidden"
-                name="form-name"
-                value="student-application"
-              />
-
-              <label htmlFor="app-full-name" style={labelStyle}>
-                Full Name *
-              </label>
-
-              <input
-                id="app-full-name"
-                type="text"
-                name="fullName"
-                autoComplete="name"
-                placeholder="Enter your full name"
-                required
-                style={fieldStyle}
-              />
-
-              <label htmlFor="app-phone" style={labelStyle}>
-                Phone Number *
-              </label>
-
-              <input
-                id="app-phone"
-                type="tel"
-                name="phone"
-                autoComplete="tel"
-                placeholder="e.g. 07XXXXXXXX"
-                required
-                style={fieldStyle}
-              />
-
-              <label htmlFor="app-email" style={labelStyle}>
-                Email Address
-              </label>
-
-              <input
-                id="app-email"
-                type="email"
-                name="email"
-                autoComplete="email"
-                placeholder="Enter your email address (optional)"
-                style={fieldStyle}
-              />
-
-              <label htmlFor="app-programme" style={labelStyle}>
-                Programme Applying For *
-              </label>
-
-              <select
-                id="app-programme"
-                name="programme"
-                required
-                defaultValue=""
-                style={fieldStyle}
-              >
-                <option value="" disabled>Select a programme</option>
-                <option value="Diploma in Bible Studies">
-                  Diploma in Bible Studies
-                </option>
-                <option value="Certificate in Bible Studies">
-                  Certificate in Bible Studies
-                </option>
-              </select>
-
-              <label htmlFor="app-education" style={labelStyle}>
-                Highest Level of Education *
-              </label>
-
-              <select
-                id="app-education"
-                name="education"
-                required
-                defaultValue=""
-                style={fieldStyle}
-              >
-                <option value="" disabled>
-                  Select your education level
-                </option>
-                <option value="Primary Education">Primary Education</option>
-                <option value="Secondary Education">Secondary Education</option>
-                <option value="Certificate">Certificate</option>
-                <option value="Diploma">Diploma</option>
-                <option value="Degree">Degree</option>
-                <option value="Other">Other</option>
-              </select>
-
-              <label htmlFor="app-church" style={labelStyle}>
-                Church or Ministry Affiliation
-              </label>
-
-              <input
-                id="app-church"
-                type="text"
-                name="church"
-                autoComplete="organization"
-                placeholder="Enter your church or ministry (optional)"
-                style={fieldStyle}
-              />
-
-              <label htmlFor="app-statement" style={labelStyle}>
-                Why would you like to study at Bomet Bible School?
-              </label>
-
-              <textarea
-                id="app-statement"
-                name="statement"
-                rows="4"
-                placeholder="Briefly tell us about your interest in Biblical studies and Christian ministry."
-                style={{ ...fieldStyle, resize: 'vertical' }}
-              />
-
-              <p style={{
-                fontSize: '13px',
-                marginBottom: '18px'
-              }}>
-                By submitting this form, you send your application details
-                to Bomet Bible School for admission follow-up.
-              </p>
-
-              <button
-                type="submit"
-                className="hero-button"
+            {applicationSubmitted ? (
+              <div
+                role="status"
+                aria-live="polite"
                 style={{
-                  display: 'block',
-                  border: 'none',
-                  cursor: 'pointer',
-                  width: '100%',
-                  padding: '13px'
+                  ...messageStyle,
+                  textAlign: 'center',
+                  fontSize: '16px',
+                  padding: '24px'
                 }}
               >
-                Submit Application
-              </button>
+                <h3 style={{ marginTop: 0 }}>
+                  Application Received Successfully!
+                </h3>
 
-              {formMessage && (
-                <div
-                  role="status"
-                  aria-live="polite"
-                  style={messageStyle}
+                <p>{formMessage}</p>
+
+                <p>
+                  Thank you for your interest in studying at Bomet Bible School.
+                </p>
+              </div>
+            ) : (
+              <form
+                name="student-application"
+                method="POST"
+                data-netlify="true"
+                onSubmit={handleApplication}
+              >
+                <input
+                  type="hidden"
+                  name="form-name"
+                  value="student-application"
+                />
+
+                <label htmlFor="app-full-name" style={labelStyle}>
+                  Full Name *
+                </label>
+
+                <input
+                  id="app-full-name"
+                  type="text"
+                  name="fullName"
+                  autoComplete="name"
+                  placeholder="Enter your full name"
+                  required
+                  style={fieldStyle}
+                />
+
+                <label htmlFor="app-phone" style={labelStyle}>
+                  Phone Number *
+                </label>
+
+                <input
+                  id="app-phone"
+                  type="tel"
+                  name="phone"
+                  autoComplete="tel"
+                  placeholder="e.g. 07XXXXXXXX"
+                  required
+                  style={fieldStyle}
+                />
+
+                <label htmlFor="app-email" style={labelStyle}>
+                  Email Address
+                </label>
+
+                <input
+                  id="app-email"
+                  type="email"
+                  name="email"
+                  autoComplete="email"
+                  placeholder="Enter your email address (optional)"
+                  style={fieldStyle}
+                />
+
+                <label htmlFor="app-programme" style={labelStyle}>
+                  Programme Applying For *
+                </label>
+
+                <select
+                  id="app-programme"
+                  name="programme"
+                  required
+                  defaultValue=""
+                  style={fieldStyle}
                 >
-                  <strong>Application status</strong>
-                  <p>{formMessage}</p>
-                </div>
-              )}
-            </form>
+                  <option value="" disabled>Select a programme</option>
+                  <option value="Diploma in Bible Studies">
+                    Diploma in Bible Studies
+                  </option>
+                  <option value="Certificate in Bible Studies">
+                    Certificate in Bible Studies
+                  </option>
+                </select>
+
+                <label htmlFor="app-education" style={labelStyle}>
+                  Highest Level of Education *
+                </label>
+
+                <select
+                  id="app-education"
+                  name="education"
+                  required
+                  defaultValue=""
+                  style={fieldStyle}
+                >
+                  <option value="" disabled>
+                    Select your education level
+                  </option>
+                  <option value="Primary Education">Primary Education</option>
+                  <option value="Secondary Education">Secondary Education</option>
+                  <option value="Certificate">Certificate</option>
+                  <option value="Diploma">Diploma</option>
+                  <option value="Degree">Degree</option>
+                  <option value="Other">Other</option>
+                </select>
+
+                <label htmlFor="app-church" style={labelStyle}>
+                  Church or Ministry Affiliation
+                </label>
+
+                <input
+                  id="app-church"
+                  type="text"
+                  name="church"
+                  autoComplete="organization"
+                  placeholder="Enter your church or ministry (optional)"
+                  style={fieldStyle}
+                />
+
+                <label htmlFor="app-statement" style={labelStyle}>
+                  Why would you like to study at Bomet Bible School?
+                </label>
+
+                <textarea
+                  id="app-statement"
+                  name="statement"
+                  rows="4"
+                  placeholder="Briefly tell us about your interest in Biblical studies and Christian ministry."
+                  style={{ ...fieldStyle, resize: 'vertical' }}
+                />
+
+                <p style={{
+                  fontSize: '13px',
+                  marginBottom: '18px'
+                }}>
+                  By submitting this form, you send your application details
+                  to Bomet Bible School for admission follow-up.
+                </p>
+
+                {formMessage && (
+                  <div
+                    role="alert"
+                    aria-live="assertive"
+                    style={{
+                      ...messageStyle,
+                      background: '#fff0f0',
+                      color: '#8b1e1e',
+                      borderColor: '#e3b2b2',
+                      marginBottom: '18px'
+                    }}
+                  >
+                    {formMessage}
+                  </div>
+                )}
+
+                <button
+                  type="submit"
+                  className="hero-button"
+                  disabled={isSubmittingApplication}
+                  style={{
+                    display: 'block',
+                    border: 'none',
+                    cursor: isSubmittingApplication ? 'wait' : 'pointer',
+                    width: '100%',
+                    padding: '13px',
+                    opacity: isSubmittingApplication ? 0.7 : 1
+                  }}
+                >
+                  {isSubmittingApplication
+                    ? 'Submitting Application...'
+                    : 'Submit Application'}
+                </button>
+              </form>
+            )}
           </div>
         </section>
 
@@ -1129,15 +1186,17 @@ function App() {
               <button
                 type="submit"
                 className="hero-button"
+                disabled={isSubmittingEnquiry}
                 style={{
                   display: 'block',
                   border: 'none',
-                  cursor: 'pointer',
+                  cursor: isSubmittingEnquiry ? 'wait' : 'pointer',
                   width: '100%',
-                  padding: '13px'
+                  padding: '13px',
+                  opacity: isSubmittingEnquiry ? 0.7 : 1
                 }}
               >
-                Send Enquiry
+                {isSubmittingEnquiry ? 'Sending Enquiry...' : 'Send Enquiry'}
               </button>
 
               {enquiryMessage && (
