@@ -2,5 +2,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://bomet-bible-school.netlify.app/sitemap.xml
-
+Sitemap: https://bomet-bible-school-website.netlify.app/sitemap.xml
